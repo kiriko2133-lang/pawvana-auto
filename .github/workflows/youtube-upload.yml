@@ -6,6 +6,7 @@ on:
 jobs:
   post_shorts:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,35 +20,29 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f season02_aquatic/requirements.txt ]; then pip install -r season02_aquatic/requirements.txt; fi
+          if [ -f season02_aquatic/requirements.txt ]; then
+            pip install -r season02_aquatic/requirements.txt
+          fi
 
       - name: Run automated production
+        working-directory: season02_aquatic
+        env:
+          # ✅ main.py が os.environ.get("YOUTUBE_CLIENT_ID_AQUATIC_EN") で読む名前
+          YOUTUBE_CLIENT_ID_AQUATIC_EN:     ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          YOUTUBE_CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          YOUTUBE_REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # その他のAPIキー
+          GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY:          ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+          GEMINI_API_KEY_AQUATIC_EN:  ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY_AQUATIC_EN:  ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+
+          # GitHub Actions 判定フラグ（main.py内のブラウザ認証回避に必要）
+          GITHUB_ACTIONS: "true"
+
         run: |
-          # 1. 最初にプログラムが存在する正しいディレクトリへ移動します
-          cd season02_aquatic
-          
-          # 2. 移動後の環境（シェル）に対して変数を注入します
-          export aquatic_en_CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
-          export aquatic_en_CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
-          export aquatic_en_REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
-          
-          export AQUATIC_EN_CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
-          export AQUATIC_EN_CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
-          export AQUATIC_EN_REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
-          
-          export CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
-          export CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
-          export REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
-          
-          export GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}"
-          export PEXELS_API_KEY="${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}"
-          export GEMINI_API_KEY_AQUATIC_EN="${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}"
-          export PEXELS_API_KEY_AQUATIC_EN="${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}"
-          
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
-          
-          # 3. 認証の競合を防ぐため、移動先にも空の .env を作成
           touch .env
-          
-          # 4. 同一階層からプログラムを実行
-          python common_src/auto_main.py
+          # ✅ profile_key "aquatic_en" を引数で明示的に渡す
+          python common_src/auto_main.py aquatic_en
