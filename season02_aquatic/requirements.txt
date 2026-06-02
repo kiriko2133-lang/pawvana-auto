@@ -1,0 +1,11 @@
+google-auth==2.35.0
+google-auth-oauthlib==1.2.1
+google-api-python-client==2.150.0
+moviepy==1.0.3
+Pillow==10.4.0
+edge-tts==6.1.15
+numpy==1.26.4
+google-generativeai==0.8.6
+requests==2.32.3
+gtts==2.5.4
+pykakasi==2.2.1
