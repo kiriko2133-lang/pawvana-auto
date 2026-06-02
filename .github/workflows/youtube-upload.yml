@@ -17,7 +17,8 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install google-api-python-client google-auth-oauthlib google-auth-httplib2
+        run: |
+          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2
 
       - name: Test Auth
         env:
@@ -27,13 +28,15 @@ jobs:
         run: |
           echo "認証テスト中"
           python - << 'EOF'
-from google.oauth2.credentials import Credentials
-creds = Credentials(
-    None,
-    refresh_token="${{ secrets.REFRESH_TOKEN }}",
-    client_id="${{ secrets.CLIENT_ID }}",
-    client_secret="${{ secrets.CLIENT_SECRET }}",
-    token_uri="https://oauth2.googleapis.com/token"
-)
-print("OK: Secrets 読み込み成功")
-EOF
+          import os
+          from google.oauth2.credentials import Credentials
+
+          creds = Credentials(
+              None,
+              refresh_token=os.environ["REFRESH_TOKEN"],
+              client_id=os.environ["CLIENT_ID"],
+              client_secret=os.environ["CLIENT_SECRET"],
+              token_uri="https://oauth2.googleapis.com/token"
+          )
+          print("OK: Secrets 読み込み成功")
+          EOF
