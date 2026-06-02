@@ -23,11 +23,11 @@ jobs:
 
       - name: Run automated production
         env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+          CLIENT_ID_AQUATIC_EN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+          GEMINI_API_KEY_AQUATIC_EN: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY_AQUATIC_EN: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
         run: |
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           cd season02_aquatic
