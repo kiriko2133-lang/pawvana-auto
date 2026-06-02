@@ -23,24 +23,7 @@ jobs:
 
       - name: Run automated production
         env:
-          # パターン1: アンダーバー（通常）
-          CLIENT_ID_AQUATIC_EN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-          GEMINI_API_KEY_AQUATIC_EN: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          PEXELS_API_KEY_AQUATIC_EN: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
-
-          # パターン2: ハイフン
-          CLIENT_ID_AQUATIC_MINUS_EN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          CLIENT_SECRET_AQUATIC_MINUS_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          REFRESH_TOKEN_AQUATIC_MINUS_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # パターン3: 結合型
-          CLIENT_ID_AQUATICEN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          CLIENT_SECRET_AQUATICEN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          REFRESH_TOKEN_AQUATICEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # パターン4: プレフィックスなし（直渡し）
+          # Secretsの個別値を、プログラムが要求する固定の名前にマッピングします
           CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
