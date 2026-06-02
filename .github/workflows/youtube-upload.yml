@@ -30,4 +30,5 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
         run: |
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
-          python season02_aquatic/common_src/auto_main.py
+          cd season02_aquatic
+          python common_src/auto_main.py
