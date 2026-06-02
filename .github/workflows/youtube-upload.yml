@@ -23,7 +23,10 @@ jobs:
 
       - name: Run automated production
         run: |
-          # 1. YAMLパーサーを完全にバイパスし、実行環境に直接変数を注入します
+          # 1. 最初にプログラムが存在する正しいディレクトリへ移動します
+          cd season02_aquatic
+          
+          # 2. 移動後の環境（シェル）に対して変数を注入します
           export aquatic_en_CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
           export aquatic_en_CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
           export aquatic_en_REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
@@ -43,8 +46,8 @@ jobs:
           
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           
-          # 環境変数の上書き破壊を防ぐため、空の .env を作成
+          # 3. 認証の競合を防ぐため、移動先にも空の .env を作成
           touch .env
           
-          # カレントディレクトリのズレによる誤認識を防ぐためルートから実行
-          python season02_aquatic/common_src/auto_main.py
+          # 4. 同一階層からプログラムを実行
+          python common_src/auto_main.py
