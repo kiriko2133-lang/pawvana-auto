@@ -23,13 +23,38 @@ jobs:
 
       - name: Run automated production
         env:
-          # GitHubのSecrets（末尾がAQUATIC_ENのもの）を、
-          # プログラムが先頭で要求する環境変数名に正しくマッピングします
+          # GitHub上のSecrets（末尾がAQUATIC_ENのもの）を、
+          # プログラムの内部ロジックで発生しうる「すべての名前パターン」にマッピングして同時に渡します。
+          
+          # パターン1: 完全素の名前（引数無視パターン）
+          CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+
+          # パターン2: 先頭大文字（レポート指摘パターン）
           AQUATIC_EN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           AQUATIC_EN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           AQUATIC_EN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
           AQUATIC_EN_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
           AQUATIC_EN_PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+
+          # パターン3: 末尾大文字パターン
+          CLIENT_ID_AQUATIC_EN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # パターン4: 小文字そのままパターン
+          aquatic_en_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          aquatic_en_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          aquatic_en_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # パターン5: アンダーバーなし結合パターン
+          AQUATICEN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          AQUATICEN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          AQUATICEN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+          
         run: |
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           cd season02_aquatic
