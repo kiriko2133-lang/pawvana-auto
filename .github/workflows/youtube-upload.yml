@@ -22,34 +22,29 @@ jobs:
           if [ -f season02_aquatic/requirements.txt ]; then pip install -r season02_aquatic/requirements.txt; fi
 
       - name: Run automated production
-        env:
-          # プログラム（profile_key = aquatic_en）が要求するピンポイントの変数名
-          aquatic_en_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          aquatic_en_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          aquatic_en_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # 大文字パターンも保険として残します
-          AQUATIC_EN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          AQUATIC_EN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          AQUATIC_EN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # 予備（フォールバック）ルート
-          CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # 各種APIキー
-          GEMINI_API_KEY_AQUATIC_EN: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          PEXELS_API_KEY_AQUATIC_EN: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
-
         run: |
+          # 1. YAMLパーサーを完全にバイパスし、実行環境に直接変数を注入します
+          export aquatic_en_CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
+          export aquatic_en_CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
+          export aquatic_en_REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
+          
+          export AQUATIC_EN_CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
+          export AQUATIC_EN_CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
+          export AQUATIC_EN_REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
+          
+          export CLIENT_ID="${{ secrets.CLIENT_ID_AQUATIC_EN }}"
+          export CLIENT_SECRET="${{ secrets.CLIENT_SECRET_AQUATIC_EN }}"
+          export REFRESH_TOKEN="${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}"
+          
+          export GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}"
+          export PEXELS_API_KEY="${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}"
+          export GEMINI_API_KEY_AQUATIC_EN="${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}"
+          export PEXELS_API_KEY_AQUATIC_EN="${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}"
+          
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           
-          # 【重要】cd をせず、リポジトリのルート（最上層）に空の .env ファイルを強制生成します。
-          # これにより、プログラム内の dotenv.load_dotenv() がGitHubの環境変数を破壊するのを完全に防ぎます。
+          # 環境変数の上書き破壊を防ぐため、空の .env を作成
           touch .env
           
-          # 階層移動は行わず、ルートディレクトリから直接スクリプトを呼び出します。
+          # カレントディレクトリのズレによる誤認識を防ぐためルートから実行
           python season02_aquatic/common_src/auto_main.py
