@@ -27,22 +27,21 @@ jobs:
       - name: Run automated production
         working-directory: season02_aquatic
         env:
-          # ✅ main.py が os.environ.get("YOUTUBE_CLIENT_ID_AQUATIC_EN") で読む名前
+          # ✅ profile_key="aquatic_en" から生成される名前に一致
           YOUTUBE_CLIENT_ID_AQUATIC_EN:     ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           YOUTUBE_CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           YOUTUBE_REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
 
-          # その他のAPIキー
-          GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          PEXELS_API_KEY:          ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+          # APIキー（フォールバック付きで両方設定）
+          GEMINI_API_KEY:             ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY:             ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
           GEMINI_API_KEY_AQUATIC_EN:  ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
           PEXELS_API_KEY_AQUATIC_EN:  ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
 
-          # GitHub Actions 判定フラグ（main.py内のブラウザ認証回避に必要）
           GITHUB_ACTIONS: "true"
 
         run: |
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           touch .env
-          # ✅ profile_key "aquatic_en" を引数で明示的に渡す
-          python common_src/auto_main.py aquatic_en
+          # ✅ 第1引数は work_dir。"." = season02_aquatic ディレクトリ自身を指す
+          python common_src/auto_main.py .
