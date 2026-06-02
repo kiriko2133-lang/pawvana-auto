@@ -23,13 +23,29 @@ jobs:
 
       - name: Run automated production
         env:
-          # 重複を排除し、レポートの指摘に基づいた先頭大文字型に一本化します
+          # パターンA: フォルダ名「season02_aquatic」から自動生成される環境変数名に対応
+          SEASON02_AQUATIC_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          SEASON02_AQUATIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          SEASON02_AQUATIC_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # パターンB: プロファイル名「aquatic_en」から生成される環境変数名に対応
           AQUATIC_EN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           AQUATIC_EN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           AQUATIC_EN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-          AQUATIC_EN_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
-          AQUATIC_EN_PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+
+          # パターンC: プロファイル名無しの標準環境変数（予備ルートを100%通すため）
+          CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # 共通APIキー
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+          GEMINI_API_KEY_AQUATIC_EN: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          PEXELS_API_KEY_AQUATIC_EN: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
+          GEMINI_API_KEY_SEASON02_AQUATIC: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
+          
         run: |
           echo "【English Aquatic Channel - AquaCurious】Starting automated production..."
           cd season02_aquatic
-          python common_src/auto_main.py
+          python common_src/auto_main.py .
