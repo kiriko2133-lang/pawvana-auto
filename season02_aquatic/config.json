@@ -1,0 +1,21 @@
+{
+    "aquatic_en": {
+        "profile_name": "AquaCurious",
+        "channel_id": "UCxSRHjF5_pOcAG84uhoxPxQ",
+        "voice": "en-US-GuyNeural",
+        "bgm": "bgm.mp3",
+        "tags": "#Shorts #MarineLife #OceanFacts #Aquatic #DeepSea #Fish #MarineBiology #AquaCurious",
+        "task_list_name": "My Tasks",
+        "pexels_api_key": "REDACTED_API_KEY",
+        "gemini_api_key": "REDACTED_API_KEY",
+        "target_animal": "aquatic",
+        "forbidden_animals": ["dog", "cat", "hamster", "bird"],
+        "topics": [
+            "Deep sea mysteries",
+            "Strange ocean creatures",
+            "Coral reef secrets",
+            "Freshwater wonders",
+            "Aquarium life hacks"
+        ]
+    }
+}
