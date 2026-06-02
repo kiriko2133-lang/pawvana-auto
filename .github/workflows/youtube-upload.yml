@@ -23,22 +23,42 @@ jobs:
 
       - name: Run automated production
         env:
-          # パターンA: フォルダ名「season02_aquatic」から自動生成される環境変数名に対応
-          SEASON02_AQUATIC_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
-          SEASON02_AQUATIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
-          SEASON02_AQUATIC_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
-
-          # パターンB: プロファイル名「aquatic_en」から生成される環境変数名に対応
+          # ==========================================
+          # パターン1: プロファイル名「aquatic_en」から生成されうる全パターン
+          # ==========================================
           AQUATIC_EN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           AQUATIC_EN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           AQUATIC_EN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
 
-          # パターンC: プロファイル名無しの標準環境変数（予備ルートを100%通すため）
+          AQUATICEN_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          AQUATICEN_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          AQUATICEN_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # ==========================================
+          # パターン2: 実行フォルダ名「season02_aquatic」から生成されうる全パターン
+          # ==========================================
+          SEASON02_AQUATIC_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          SEASON02_AQUATIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          SEASON02_AQUATIC_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          SEASON02AQUATIC_CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          SEASON02AQUATIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          SEASON02AQUATIC_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
+          # ==========================================
+          # パターン3: Secretsの素の名前、およびプログラムの予備（フォールバック）ルート
+          # ==========================================
+          CLIENT_ID_AQUATIC_EN: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
+          CLIENT_SECRET_AQUATIC_EN: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
+          REFRESH_TOKEN_AQUATIC_EN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
+
           CLIENT_ID: ${{ secrets.CLIENT_ID_AQUATIC_EN }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET_AQUATIC_EN }}
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN_AQUATIC_EN }}
 
-          # 共通APIキー
+          # ==========================================
+          # 各種APIキー（プロファイル付き・なし両方）
+          # ==========================================
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY_AQUATIC_EN }}
           GEMINI_API_KEY_AQUATIC_EN: ${{ secrets.GEMINI_API_KEY_AQUATIC_EN }}
